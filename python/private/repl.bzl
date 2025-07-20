@@ -1,12 +1,10 @@
 """Implementation of the rules to expose a REPL."""
 
 load("//python:py_binary.bzl", _py_binary = "py_binary")
-load("@bazel_skylib//lib:paths.bzl", "paths")
 
 def _generate_repl_main_impl(ctx):
     stub_repo = ctx.attr.stub.label.repo_name or ctx.workspace_name
-    unnormalized_path = "/".join([stub_repo, ctx.file.stub.short_path])
-    stub_path = paths.normalize(unnormalized_path)
+    stub_path = "/".join([stub_repo, ctx.file.stub.short_path])
 
     out = ctx.actions.declare_file(ctx.label.name + ".py")
 
